@@ -1,0 +1,16 @@
+[project]
+name = "chatbot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "flask>=3.1.0",
+    "langchain-community>=0.3.7",
+    "langchain>=0.3.7",
+    "langchain-ollama>=0.2.0",
+    "markdown>=3.7",
+]
+
+[dependency-groups]
+dev = []
