@@ -6,5 +6,5 @@
 
 * clone this repo
 * optional: add your private data into info.txt
-* uv run main.py
-* try this [http://localhost:8080/ask?query=what's your name?](http://localhost:8080/ask?query=what's your name?)
+* RAG_MODEL=qwen2:0.5b uv run main.py
+* input your questions

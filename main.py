@@ -1,9 +1,10 @@
 from flask import Flask, request, render_template
-import markdown
+# import markdown
+
 import whatsapp
 from chat import chat
 
-app = Flask(__name__, template_folder=".")
+app = Flask(__name__)
 
 
 # receives a notification from whatsapp containing the user message,
@@ -30,9 +31,10 @@ def verify():
         return "", 403
 
 
-@app.route("/ask", methods=["GET"])
+@app.route("/ask", methods=["GET", "POST"])
 def ask():
-    query = request.args.get("query")
+    # query = request.args.get("query")
+    query = request.form["query"]
     if query:
         res = chat(query)
         return res, 200
@@ -42,11 +44,12 @@ def ask():
 
 @app.route("/")
 def home():
-    with open("README.md", "r") as markdown_file:
-        content = markdown.markdown(markdown_file.read())
-        return render_template("template.html", content=content)
+    return render_template("index.html")
+    # with open("README.md", "r") as markdown_file:
+    #     content = markdown.markdown(markdown_file.read())
+    #     return render_template("markdown.html", content=content)
 
 
-# # boots up the server when main.py is run
+# boots up the server when main.py is run
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True, port=8080)
