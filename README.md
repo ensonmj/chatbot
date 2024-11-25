@@ -6,4 +6,4 @@
 * clone this repo
 * uv sync
 * uv run main.py
-* try this [http://localhost:8080/ask?query=电脑怎么修](http://localhost:8080/ask?query=电脑怎么修)
+* try this [http://localhost:8080/ask?query=what's your name?](http://localhost:8080/ask?query=what's your name?)
