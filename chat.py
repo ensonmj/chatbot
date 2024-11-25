@@ -1,18 +1,16 @@
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables.history import RunnableWithMessageHistory
 
-# from langchain_core.output_parsers import StrOutputParser
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain, create_history_aware_retriever
 
-from langchain_community.chat_models import ChatOllama
-# from langchain_ollama import ChatOllama
+from langchain_ollama import ChatOllama
 
 from loader import get_retriever
 from session import get_session_history, get_history_factory_config, get_invoke_config
 
 
-llm = ChatOllama(model="qwen2:0.5b")
+llm = ChatOllama(model="qwen2:0.5b", disable_streaming=True)
 retriever = get_retriever()
 
 ### Contextualize question ###
@@ -51,7 +49,6 @@ qa_prompt = ChatPromptTemplate.from_messages(
 question_answer_chain = create_stuff_documents_chain(llm, qa_prompt)
 
 rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
-# rag_chain = qa_prompt | llm | StrOutputParser()
 
 chain_with_history = RunnableWithMessageHistory(
     rag_chain,
