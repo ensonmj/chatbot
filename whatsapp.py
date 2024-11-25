@@ -1,11 +1,12 @@
-import os
 import requests
+
+import config
 from chat import chat
 
 
 # info on verification request payload: https://developers.facebook.com/docs/graph-api/webhooks/getting-started#verification-requests
 def verify(token, mode):
-    if token == os.getenv("VERIFY_TOKEN") and mode == "subscribe":
+    if token == config.whatapp_verify_token and mode == "subscribe":
         return True
     else:
         return False
@@ -42,7 +43,7 @@ def parse_webhook_payload(body):
 
 
 def send_message(from_id, to, body):
-    url = f'https://graph.facebook.com/v12.0/{from_id}/messages?access_token={os.getenv("WHATSAPP_TOKEN")}'
+    url = f"https://graph.facebook.com/v12.0/{from_id}/messages?access_token={config.whatsapp_token}"
 
     requests.post(
         url,

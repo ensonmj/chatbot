@@ -5,18 +5,20 @@ from langchain_core.vectorstores import InMemoryVectorStore
 # from langchain_chroma import Chroma
 from langchain_ollama import OllamaEmbeddings
 
+import config
+
 
 def get_retriever():
     # Load, chunk and index the contents of the blog to create a retriever.
-    loader = TextLoader("info.txt")
+    loader = TextLoader(config.data_path)
     docs = loader.load()
 
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     splits = text_splitter.split_documents(docs)
 
     vectorstore = InMemoryVectorStore.from_documents(
-        documents=splits, embedding=OllamaEmbeddings(model="qwen2:0.5b")
+        documents=splits, embedding=OllamaEmbeddings(model=config.model)
     )
-    # vectorstore = Chroma.from_documents(documents=splits, embedding=OllamaEmbeddings(model="qwen2:0.5b"))
+    # vectorstore = Chroma.from_documents(documents=splits, embedding=OllamaEmbeddings(model="config.model"))
 
     return vectorstore.as_retriever()
